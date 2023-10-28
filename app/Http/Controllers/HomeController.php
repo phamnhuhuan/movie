@@ -46,7 +46,7 @@ class HomeController extends Controller
     {
         $data=$request->all();
         if($data['query']){
-            $movie_search=Movie::where('name_movie','LIKE','%'.$data['query'].'%')->get();
+            $movie_search=Movie::select('img_movie','name_movie','slug_movie')->where('name_movie','LIKE','%'.$data['query'].'%')->get();
             if($movie_search->count()>0){
                 $output='';
                 foreach ($movie_search as $key => $value) {
@@ -155,15 +155,15 @@ class HomeController extends Controller
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
             
         }
-        
+        if (Auth::check() && Auth::user()->role=='0') {
+            $user=User::find(Auth::user()->id);
+            $user->role='2';
+            $user->save();
+        }
         $returnData = array('code' => '00'
             , 'message' => 'success'
             , 'data' => $vnp_Url);
-            if(isset($returnData)){
-                $user=User::find(Auth::user()->id);
-                $user->role='2';
-                $user->save();
-            }
+            
             if ($vnp_Url) {
                 header('Location: ' . $vnp_Url);
                 die();

@@ -41,7 +41,8 @@ class DetailMovieController extends Controller
         $movie=Movie::with('cate')->where('slug_movie',$slug)->first();
         if ($movie) {
             $id_cate=$movie->id_cate;
-            $same=Movie::select('id_movie','img_movie','name_movie','slug_movie','id_cate')->with('cate')->where('id_cate',$id_cate)->get();
+            $id_movie=$movie->id_movie;
+            $same=Movie::select('id_movie','img_movie','name_movie','slug_movie','id_cate')->with('cate')->where('id_movie','<>',$id_movie)->where('id_cate',$id_cate)->get();
             
             return view('page.detailmovie',compact('movie','same'));
         } else {
