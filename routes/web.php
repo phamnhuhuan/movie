@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('dang-nhap', [AuthController::class,'login']);
 Route::get('dang-ki', [AuthController::class,'register']);
 Route::post('check_register', [AuthController::class,'check_register']);
-Route::post('check_login', [AuthController::class,'check_login']);
+Route::post('check_login', [AuthController::class,'check_login'])->middleware("throttle:5,2");
 Route::middleware(['admin'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('admin/user', UserController::class);
