@@ -13,16 +13,20 @@ use App\Models\Zoom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+     /**
+     * @param View $view
+     */
     public function index(Request $request)
     {
         $ip=$request->ip();
-        $count_visitor=Visitor::where('ip_visitor',$ip)->get()->count();
+        $count_visitor=Visitor::where('ip_visitor',$ip)->get()->count('id_visitor');
         if ($count_visitor < 1) {
             $visitor=new Visitor();
             $visitor->ip_visitor=$ip;

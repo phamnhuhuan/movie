@@ -11,5 +11,8 @@ class Cate extends Model
     protected $fillable = ['name_cate','slug_cate'];
     protected $table = 'cate';
     protected $primaryKey = 'id_cate';
-   
+    public function movie(): HasMany
+    {
+        return $this->hasMany(Movie::class,'id_cate');
+    }
 }

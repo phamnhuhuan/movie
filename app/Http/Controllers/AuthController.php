@@ -51,21 +51,22 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|max:35',
             'email' => 'required|unique:users|email',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
         ], [
             'name.required' => 'Không được bỏ trống',
             'name.max' => 'Nhỏ hơn 35 kí tự',
             'password.required' => 'Không được bỏ trống',
             'password.min' => 'Lớn hơn 8 kí tự',
+            'password.regex' => 'Phải có chữ hoa, chữ thường và số',
             'email.required' => 'Không được bỏ trống',
             'email.unique' => 'Email đã được sử dụng',
             'email.email' => 'Sai định dạng Email'
         ]);
         $user = $request->all();
         $email=User::create($user)->email;
-        if(isset($email)){
-            Mail::to($email)->send(new Mailer);
-        }
+        // if(isset($email)){
+        //     Mail::to($email)->send(new Mailer);
+        // }
         return redirect('dang-nhap');
     }
     /**

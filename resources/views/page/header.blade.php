@@ -66,14 +66,21 @@
                                 <li class="{{Request::segment(2)== $value->slug_cate ? 'active' : ''}}"><a title="{{ $value->name_cate }}"
                                         href="{{ Route('danh-muc.show', [$value->slug_cate]) }}">{{ $value->name_cate }}</a>
                                 </li>
+                                <li>{{$value->movie_count}}</li>
+                                @foreach ($value->movie as $item)
+                                    <li>{{$item->id_movie}}</li>
+                                @endforeach
                             @endforeach
                             <li class="mega dropdown {{Request::segment(1)== 'the-loai' ? 'active' : ''}}">
                                 <a title="Quốc Gia" href="#" data-toggle="dropdown" class="dropdown-toggle"
                                     aria-haspopup="true">Thể loại phim<span class="caret"></span></a>
                                 <ul role="menu" class=" dropdown-menu">
                                     @foreach ($genre as $value)
-                                        <li><a title="{{ $value->name_genre }}"
-                                                href="{{ Route('the-loai.show', [$value->slug_genre]) }}">{{ $value->name_genre }}</a>
+                                        <li>
+                                            <a title="{{ $value->name_genre }}"
+                                                href="{{ Route('the-loai.show', [$value->slug_genre]) }}">{{ $value->name_genre }}
+                                            </a>
+                                                {{$value->movie_genre_count}}
                                         </li>
                                     @endforeach
                                 </ul>

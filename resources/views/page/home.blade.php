@@ -1,6 +1,5 @@
-@section('title')
-    Trang chủ
-@endsection
+@section('keyword')Trang chủ phim hay phim moi phim hot @endsection
+@section('title')Trang chủ@endsection
 @extends('app')
 @section('content')
 <div class="container">
